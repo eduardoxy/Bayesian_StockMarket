@@ -1,0 +1,192 @@
+Mon Oct 24 20:50:27 2016
+
+
+Moral links:
+
+    Marrying C3 and C4
+
+
+Triangulating prime component with 3 members:
+    C5, C4, C3
+This component is a clique of cost 18
+
+Triangulating prime component with 3 members:
+    C4, C3, C2
+This component is a clique of cost 18
+
+Triangulating prime component with 3 members:
+    C3, C2, C1
+This component is a clique of cost 18
+
+
+Total cost of triangulation for all prime components is 54
+
+
+Elimination sequence:
+
+    C5
+    C4
+    C1
+    C2
+    C3
+
+
+Cliques:
+
+Clique 3, 3 members, table size = 18:
+    C3, C2, C1
+
+Clique 2, 3 members, table size = 18:
+    C3, C2, C4
+
+Clique 1, 3 members, table size = 18:
+    C3, C4, C5
+
+Total clique table size: 54
+
+
+The junction forest:
+
+Creating junction tree with clique 3 as root ...
+
+Cliques 2 and 3 linked, separator has 2 members and table size = 6:
+    C3, C2
+
+Cliques 1 and 2 linked, separator has 2 members and table size = 9:
+    C3, C4
+
+
+Assignment of potentials to cliques:
+
+    Node C5 assigned to clique 1
+    Node C4 assigned to clique 2
+    Node C3 assigned to clique 3
+    Node C2 assigned to clique 3
+    Node C1 assigned to clique 3
+
+
+Checking conditional probability potentials:
+
+    No errors found
+
+
+Beliefs for chance nodes:
+
+    C5:
+	State 1    0.5
+	State 2    0.5
+
+    C4:
+	Alto       0.333333
+	Médio     0.333333
+	Baixo      0.333333
+
+    C3:
+	Aumentar   0.333333
+	Diminuir   0.333333
+	Estável   0.333333
+
+    C2:
+	Aumentar   0.5
+	Diminuir   0.5
+
+    C1:
+	menos de 23 0.333333
+	23 a 25    0.333333
+	mais de 25 0.333333
+Mon Oct 24 20:50:56 2016
+
+
+Moral links:
+
+    Marrying C3 and C4
+
+
+Triangulating prime component with 3 members:
+    C5, C4, C3
+This component is a clique of cost 18
+
+Triangulating prime component with 3 members:
+    C4, C3, C2
+This component is a clique of cost 18
+
+Triangulating prime component with 3 members:
+    C3, C2, C1
+This component is a clique of cost 18
+
+
+Total cost of triangulation for all prime components is 54
+
+
+Elimination sequence:
+
+    C5
+    C4
+    C1
+    C2
+    C3
+
+
+Cliques:
+
+Clique 3, 3 members, table size = 18:
+    C3, C2, C1
+
+Clique 2, 3 members, table size = 18:
+    C3, C2, C4
+
+Clique 1, 3 members, table size = 18:
+    C3, C4, C5
+
+Total clique table size: 54
+
+
+The junction forest:
+
+Creating junction tree with clique 3 as root ...
+
+Cliques 2 and 3 linked, separator has 2 members and table size = 6:
+    C3, C2
+
+Cliques 1 and 2 linked, separator has 2 members and table size = 9:
+    C3, C4
+
+
+Assignment of potentials to cliques:
+
+    Node C5 assigned to clique 1
+    Node C4 assigned to clique 2
+    Node C3 assigned to clique 3
+    Node C2 assigned to clique 3
+    Node C1 assigned to clique 3
+
+
+Checking conditional probability potentials:
+
+    No errors found
+
+
+Beliefs for chance nodes:
+
+    C5:
+	State 1    0.5
+	State 2    0.5
+
+    C4:
+	Alto       0.333333
+	Médio     0.333333
+	Baixo      0.333333
+
+    C3:
+	Aumentar   0.333333
+	Diminuir   0.333333
+	Estável   0.333333
+
+    C2:
+	Aumentar   0.5
+	Diminuir   0.5
+
+    C1:
+	menos de 23 0.333333
+	23 a 25    0.333333
+	mais de 25 0.333333
