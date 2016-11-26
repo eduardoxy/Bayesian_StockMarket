@@ -1,0 +1,33 @@
+net
+{
+     node_size = (0 0);
+     name = "New BN";
+     UnBBayes_Color_Probabilistic_Description = "-256";
+     UnBBayes_Color_Probabilistic_Explanation = "-16711936";
+}
+
+node Temperature
+{
+     label = "Temperature";
+     position = (157 18);
+     states = ("hot" "cold");
+}
+
+node Termometer
+{
+     label = "Termometer";
+     position = (157 124);
+     states = ("hotMes" "coldMes");
+}
+
+potential (Temperature)
+{
+ data = ( 0.8 0.2 );
+}
+
+potential (Termometer | Temperature)
+{
+ data = (( 0.9 0.1 )
+( 0.3 0.7 ));
+}
+

@@ -136,7 +136,7 @@ public class Candle implements Comparable<Candle>, IfaceClusterInterval {
         return this.getTimestamp().compareTo(o.getTimestamp());
     }
 
-    @Override
+    
     public boolean belongsToCluster(ClusterCandle cluster) {
             Candle cMin = cluster.getMinValue();
             Candle cMax = cluster.getMaxValue();
