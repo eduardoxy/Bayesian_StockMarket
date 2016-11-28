@@ -19,7 +19,7 @@ public class ConstruirRede
     private ProbabilisticNode nodeFirst;
     private ProbabilisticNode nodeProb;
     private PotentialTable tabela;
-    private String NODE_DECISAO = "decisionNode";
+    private String NODE_DECISAO = "firstNode";
     private String NODE_PROBABILIDADE = "probNode1";
     
     private int nEvidencia;
@@ -70,7 +70,7 @@ public class ConstruirRede
         // Add decision node
         this.nodeFirst = new ProbabilisticNode();
 		this.nodeFirst.setName(this.NODE_DECISAO);
-		this.nodeFirst.setDescription("Nó de decisão");
+		this.nodeFirst.setDescription("Primeiro Node");
 		
         for(int index=1; index<= numberOfClusters; index++)
         {
@@ -146,12 +146,7 @@ public class ConstruirRede
         {
 			System.out.print(node.getStateAt(index));
 
-			if (node instanceof DecisionNode) 
-            {
-				DecisionNode dn = (DecisionNode) node;
-				System.out.println(" = " + dn.getMarginalAt(index));
-			} 
-            else if (node instanceof ProbabilisticNode) 
+             if (node instanceof ProbabilisticNode) 
             {
 				ProbabilisticNode dn = (ProbabilisticNode) node;
 				System.out.println(" = " + dn.getMarginalAt(index));
