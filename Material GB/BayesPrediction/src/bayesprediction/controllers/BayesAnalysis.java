@@ -19,6 +19,8 @@ public class BayesAnalysis {
     protected CandleCollection            cCol;
     protected CandleCollection            sCol;
     protected ClusterCandleCollection     clusters;
+    protected int                         iStart;
+    protected int                         iEnd;
     protected int                         nClusters;
 
     public BayesAnalysis(Calendar startTime, Calendar endTime, CandleCollection cCol, int clusters) {
@@ -45,6 +47,10 @@ public class BayesAnalysis {
             System.out.println("Start position must be greater than end position");
             return;
         }
+        
+        // Store the start and the end position of the analysed window.
+        iStart = p_s;
+        iEnd = p_e;
         
         cCol = cCol.subSet(p_s, p_e);
         sCol = (CandleCollection) cCol.clone();
@@ -151,32 +157,21 @@ public class BayesAnalysis {
         }
     }
     
-    public int getNumberOfClusters()
+    public ClusterCandleCollection getClusters()
     {
-        return this.nClusters;
+        return clusters;
+    }
+
+    public int getIndexStart() {
+        return iStart;
+    }
+
+    public int getIndexEnd() {
+        return iEnd;
     }
     
-    /***
-     * TODO: 
-     *      1. Deve obter o cluster de posição nCluster
-     *      2. Obter o estado "posicao"
-     * 
-     * @param nCluster
-     * @param posicao
-     * @return 
-     */
-    public float ObterValorCondicional(int nCluster, int posicao)
+    public CandleCollection getCandleCollection()
     {
-        return 0;
-    }
-    
-    /***
-     * 
-     * @param posicao
-     * @return 
-     */
-    public float getMarginalAt(int posicao)
-    {
-        return 0;
+        return cCol;
     }
 }

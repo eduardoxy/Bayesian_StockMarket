@@ -24,6 +24,7 @@ public class ClusterCandle {
     private final CandleCollection  cCol; //
     private ClusterCandleCollection clusters;
     private List<Candle>            margiMatches;
+    private List<List<Candle>>      condMatches;
 
     public ClusterCandle(CandleCollection cCol, Candle minValue, Candle maxValue, 
         boolean minInclusive, boolean maxInclusive) {
@@ -103,7 +104,7 @@ public class ClusterCandle {
         /*msg = "Cluster -> Min " + (isMinInclusive() ? "Inclusive" : "") + "-> <" + minValue + ">" + 
             "Max " + (isMaxInclusive() ? "Inclusive" : "") + "-> <" + maxValue + ">";*/
         msg = minValue + 
-                (isMinInclusive() ? " <=" : " <") + " val " + 
+                (isMinInclusive() ? " <=" : " <") + " val" + 
                 (isMaxInclusive() ? " <=" : " <") + 
                 maxValue;
         
@@ -112,14 +113,31 @@ public class ClusterCandle {
     
     public double getMarginalProbability()
     {
-        return ((calcMarginalProb().size() * 1.0f) / cCol.size());
+        return ((calcMarginalProb(false).size() * 1.0f) / cCol.size());
     }
     
-    private List<Candle> calcMarginalProb()
+    public List<Float> getConditionalProbability()
     {
-        if (margiMatches != null)
-            return margiMatches;
+        List<Float> c = new ArrayList<>();
         
+        List<Candle>            mMatches = calcMarginalProb(true);
+        List<List<Candle>>      cMatches = calcConditionalProb();
+        Iterator<List<Candle>>  it = cMatches.iterator();
+        
+        //System.out.println("-> Conditional " + this);
+        while (it.hasNext())
+        {
+            List<Candle> matches = it.next();
+            float val = ((matches.size() * 1.0f) / mMatches.size());
+            c.add(val);
+            //System.out.println(String.format("%.05f", val));
+        }
+        
+        return c;
+    }
+    
+    private List<Candle> calcMarginalProb(boolean toConditional)
+    {
         margiMatches = new ArrayList<>();
         Iterator<Candle> it = cCol.iterator();
         Candle c;
@@ -127,26 +145,32 @@ public class ClusterCandle {
         while (it.hasNext())
         {
             c = it.next();
-            if (c.belongsToCluster(this))
+
+            if ((c.belongsToCluster(this)) && ((cCol.getLast() != c) || !toConditional))
                 margiMatches.add(c);
         }
+        //System.out.println(this + "" + " -> " + margiMatches.size() + "/" + cCol.size());
         
         return margiMatches;
     }
     
     public List<List<Candle>> calcConditionalProb()
     {
-        List<Candle>            margMatches = calcMarginalProb();
-        List<List<Candle>>      matches = new ArrayList<>();
+        if (condMatches != null)
+            return condMatches;
+        
+        List<Candle>            margMatches = calcMarginalProb(true);
         ClusterCandle           cluster;
         Iterator<ClusterCandle> it = clusters.iterator();
+        
+        condMatches = new ArrayList<>();
         
         //System.out.println("-> Conditional " + this);
         while (it.hasNext())
         {
             cluster = it.next();
             List<Candle> mMatches = new ArrayList<>();
-            matches.add(mMatches);
+            condMatches.add(mMatches);
             
             //System.out.println("P(" + cluster + "|" + this + ")");
             Iterator<Candle> itCandle = margMatches.iterator();
@@ -156,10 +180,11 @@ public class ClusterCandle {
                 if ((c != null) && (c.belongsToCluster(cluster)))
                     mMatches.add(c);
             }
-            double pCond = (((double) mMatches.size() / (double) margMatches.size()) * 100.0);
+            //double pCond = (((double) mMatches.size() / (double) margMatches.size()) * 100.0);
+            //System.out.println("P([" + cluster + "]|[" + this + "]) -> " + mMatches.size() + "/" + margMatches.size());
             //System.out.println("P([" + cluster + "]|[" + this + "]) -> " + String.format("%02.05f", pCond) + "%");
         }
         
-        return matches;
+        return condMatches;
     }
 }

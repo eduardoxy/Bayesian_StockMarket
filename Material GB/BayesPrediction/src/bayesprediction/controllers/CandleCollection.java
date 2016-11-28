@@ -225,7 +225,11 @@ public class CandleCollection implements Iterable<Candle>, Iterator<Candle>{
             cur = next;
         }
         cur.setPrevious(prev);
-        cur.setNext(null);
+        if (i < mSize)
+            next = aData[i];
+        else
+            next = null;
+        cur.setNext(next);
         cur.recalc();
         
         return new CandleCollection(subSet, size);

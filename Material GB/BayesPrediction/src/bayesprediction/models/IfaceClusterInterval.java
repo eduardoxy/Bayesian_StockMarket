@@ -6,6 +6,7 @@
 package bayesprediction.models;
 
 import bayesprediction.controllers.ClusterCandle;
+import bayesprediction.controllers.ClusterCandleCollection;
 
 /**
  *
@@ -13,4 +14,6 @@ import bayesprediction.controllers.ClusterCandle;
  */
 public interface IfaceClusterInterval {
     public boolean belongsToCluster(ClusterCandle cluster);
+    
+    public ClusterCandle pickFirstCluster(ClusterCandleCollection clusterCol);
 }

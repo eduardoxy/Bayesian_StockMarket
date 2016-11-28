@@ -81,6 +81,7 @@ public class TextMode {
 		auxCPT.addValueAt(0, 0.99f);
 		auxCPT.addValueAt(1, 0.01f);
 		net.addNode(auxProbVariable);
+                printNode(auxProbVariable);
 
 		// adding a new edge manually
 		ProbabilisticNode auxProbVariable2 = (ProbabilisticNode) net.getNode(resource.getString("nodeName2"));
@@ -95,10 +96,26 @@ public class TextMode {
 		// print node's states
 		List<Node> nodeList = net.getNodes();
 		for (Node node : nodeList) {
-			System.out.println(node.getDescription());
-			for (int i = 0; i < node.getStatesSize(); i++) {
-				System.out.println(node.getStateAt(i) + " : " + ((ProbabilisticNode)node).getMarginalAt(i));
-			}
+			/*System.out.println("Node   -> " + node.getName()/* + " " + node.getDescription());
+                        System.out.println("States -> " + node.getStatesSize());
+                        if (node instanceof ProbabilisticNode)
+                        {
+                            ProbabilisticNode pNode = (ProbabilisticNode) node;
+                            PotentialTable pt = pNode.getProbabilityFunction();
+                            System.out.println("Table -> Variables size = " + pt.getVariablesSize());
+                            System.out.println("" + pt.getValue(0));
+                            System.out.println("" + pt.getValue(1));
+                            System.out.println("" + pt.getValue(2));
+                            System.out.println("" + pt.getValue(3));
+                            System.out.println("" + pt.getValue(4));
+                            System.out.println("" + pt.getValue(5));
+                            System.out.println("" + pt.getValue(6));
+                            System.out.println("" + pt.getValue(7));
+                        }*/
+			/*for (int i = 0; i < node.getStatesSize(); i++) {
+                            System.out.println(node.getStateAt(i) + " : " + 
+                                ((ProbabilisticNode)node).getMarginalAt(i));
+			}*/
 		}
 		
 		// insert evidence (finding)
@@ -117,11 +134,18 @@ public class TextMode {
         }
         
         //@print updated node's states
-		for (Node node : nodeList) {
+		/*for (Node node : nodeList) {
 			System.out.println(node.getDescription());
 			for (int i = 0; i < node.getStatesSize(); i++) {
 				System.out.println(node.getStateAt(i) + " : " + ((ProbabilisticNode)node).getMarginalAt(i));
 			}
-		}
+		}*/
 	}
+        private static void printNode(ProbabilisticNode node)
+        {
+            for (int i = 0; i < node.getStatesSize(); i++)
+                System.out.println("Node [" + node.getName() + 
+                    "] -> State(" + node.getStateAt(i) + ") = " + 
+                    String.format("%.05f", node.getMarginalAt(i)));
+        }
 }

@@ -6,8 +6,10 @@
 package bayesprediction.models;
 
 import bayesprediction.controllers.ClusterCandle;
+import bayesprediction.controllers.ClusterCandleCollection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  *
@@ -145,5 +147,26 @@ public class Candle implements Comparable<Candle>, IfaceClusterInterval {
 
             return cluster.checkValue(mMin, mMax);
     }
+
+    @Override
+    public ClusterCandle pickFirstCluster(ClusterCandleCollection clusterCol) {
+        Iterator<ClusterCandle> it = clusterCol.iterator();
+            
+        while (it.hasNext())
+        {
+            ClusterCandle cluster = it.next();
+            
+            Candle cMin = cluster.getMinValue();
+            Candle cMax = cluster.getMaxValue();
+            int mMin = this.compareTo(cMin);
+            int mMax = this.compareTo(cMax);
+            
+            if (cluster.checkValue(mMin, mMax))
+                return cluster;
+        }
+        
+        return null;
+    }
+    
     
 }

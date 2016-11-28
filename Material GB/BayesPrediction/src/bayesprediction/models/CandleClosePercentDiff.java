@@ -56,8 +56,11 @@ public class CandleClosePercentDiff extends Candle {
 
     @Override
     public String toString() {
-        String m = "";//super.toString();
-        m += /*"|"Close % diff. = " +*/ String.format("%.03f", percDiff);
+        String m = super.getTimeStampFormatted();
+        m += "|" + String.format("%.03f", percDiff) + "%";
+        
+        /*String m = super.toString();
+        m += "|Close % diff. = " + String.format("%.03f", percDiff) + "%";*/
         
         return m;
     }
