@@ -1,5 +1,6 @@
 package unbayes.examples;
 
+import bayesprediction.controllers.BayesAnalysis;
 import unbbayes.prs.Edge;
 import unbbayes.prs.Node;
 import unbbayes.prs.bn.JunctionTreeAlgorithm;
@@ -12,8 +13,8 @@ import unbbayes.prs.id.DecisionNode;
 
 public class ConstruirRede 
 {
-    private int clusters;
-    private float[][] matriz;
+    private BayesAnalysis analise;
+    private int numberOfClusters;
     private ProbabilisticNetwork rede;
     private DecisionNode nodeDecision;
     private ProbabilisticNode nodeProb;
@@ -23,11 +24,11 @@ public class ConstruirRede
     
     private int nEvidencia;
     
-    public ConstruirRede(int clusters)
-    {
-        this.clusters = clusters;
-        this.matriz = new float[this.clusters][this.clusters];
+    public ConstruirRede(BayesAnalysis analise)
+    {        
         this.rede = new ProbabilisticNetwork("Rede");
+        this.analise = analise;
+        this.numberOfClusters = this.analise.getNumberOfClusters();
     }
     
     public void Construir()
@@ -55,7 +56,7 @@ public class ConstruirRede
     {
         this.nEvidencia = numeroEvidencia;
         
-        if(numeroEvidencia > this.clusters)
+        if(numeroEvidencia > this.numberOfClusters)
         {
             throw new Exception("Escolha deve ficar entre o número de estados...");
         }
@@ -71,7 +72,7 @@ public class ConstruirRede
 		this.nodeDecision.setName(this.NODE_DECISAO);
 		this.nodeDecision.setDescription("Nó de decisão");
 		
-        for(int index=1; index<= this.clusters; index++)
+        for(int index=1; index<= numberOfClusters; index++)
         {
             this.nodeDecision.appendState(String.format("Faixa %d", index));
         }
@@ -86,7 +87,7 @@ public class ConstruirRede
 		this.nodeProb.setName(this.NODE_PROBABILIDADE);
 		this.nodeProb.setDescription("Nó de probabilidade 1");
         
-        for(int index=1; index<= this.clusters; index++)
+        for(int index=1; index<= this.numberOfClusters; index++)
         {
             this.nodeProb.appendState(String.format("Faixa %d", index));
         }
@@ -105,7 +106,7 @@ public class ConstruirRede
         this.tabela = this.nodeProb.getProbabilityFunction();
 		this.tabela.addVariable(this.nodeProb);
 		
-        int qtdeIteracao = this.clusters * this.clusters;
+        int qtdeIteracao = this.numberOfClusters * this.numberOfClusters;
         
         for(int index = 0; index < qtdeIteracao; index++)
         {
@@ -115,10 +116,14 @@ public class ConstruirRede
     
     private float ObterValorPosicao(int index)
     {
-        int linha = index / this.clusters;
-        int coluna = index % this.clusters;
+        // Numero do cluster que vai adicionar na arvore
+        int nCluster = index / this.numberOfClusters;
         
-        return this.matriz[linha][coluna];
+        // Posição da condicional para adicionar
+        int posicao = index % this.numberOfClusters;
+        
+        // Deve procurar na analise, qual é o valor da condicional que representa posicao
+        return analise.ObterValorCondicional(nCluster, posicao);
     }
     
     private void ConstruirEngine()

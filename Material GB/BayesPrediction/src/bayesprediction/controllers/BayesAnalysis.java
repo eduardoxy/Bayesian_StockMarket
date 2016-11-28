@@ -147,4 +147,23 @@ public class BayesAnalysis {
             c.calcConditionalProb();
         }
     }
+    
+    public int getNumberOfClusters()
+    {
+        return this.nClusters;
+    }
+    
+    /***
+     * TODO: 
+     *      1. Deve obter o cluster de posição nCluster
+     *      2. Obter o estado "posicao"
+     * 
+     * @param nCluster
+     * @param posicao
+     * @return 
+     */
+    public float ObterValorCondicional(int nCluster, int posicao)
+    {
+        return 0;
+    }
 }
