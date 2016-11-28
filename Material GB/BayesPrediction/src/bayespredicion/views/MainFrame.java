@@ -7,14 +7,13 @@ package bayespredicion.views;
 
 import bayesprediction.controllers.BayesAnalysis;
 import bayesprediction.controllers.LoadMT5CSVFile;
-import bayesprediction.models.Candle;
 import bayesprediction.controllers.CandleCollection;
 import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import bayesprediction.controllers.UNBBayesEngineStock;
 
 /**
  *
@@ -209,7 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION)
         {*/
             //csvFile = fc.getSelectedFile();
-            csvFile = new File("D:\\GoogleDrive\\Dropbox\\Unisinos\\2016-02\\1. Agentes e Sistemas Multiagentes\\Grau A\\Grau B\\BBAS3 - Historical Data\\BBAS3M15.csv");
+            csvFile = new File("/media/eduardo/Dados/GoogleDrive/Dropbox/Unisinos/2016-02/1. Agentes e Sistemas Multiagentes/Grau A/Bayesian Network for Price Prediction/Material GB/BBAS3 - Historical Data/BBAS3M15.csv");
             System.out.println("Selected file: " + csvFile.getAbsolutePath());
             
             LoadMT5CSVFile t = new LoadMT5CSVFile(csvFile);
@@ -221,6 +220,7 @@ public class MainFrame extends javax.swing.JFrame {
             } catch (IOException e)
             {
                 cList = null;
+                csvFile = null;
                 System.out.println("Error while reading the file");
             }
         /*}
@@ -247,8 +247,10 @@ public class MainFrame extends javax.swing.JFrame {
             Calendar cDateEnd = Calendar.getInstance();
             cDateEnd.setTime(dEnd);
             
-            BayesAnalysis ba = new BayesAnalysis(
-                cDateStart, cDateEnd, cList, 5);
+            /*BayesAnalysis ba = new BayesAnalysis(
+                cDateStart, cDateEnd, cList, 5);*/
+            
+            new UNBBayesEngineStock(cDateStart, cDateEnd, cList, 5);
         }
     }//GEN-LAST:event_jButtonAnalyseDataActionPerformed
 

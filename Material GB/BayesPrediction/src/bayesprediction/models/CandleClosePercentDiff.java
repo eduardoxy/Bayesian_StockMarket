@@ -6,7 +6,6 @@
 package bayesprediction.models;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -58,7 +57,7 @@ public class CandleClosePercentDiff extends Candle {
     @Override
     public String toString() {
         String m = "";//super.toString();
-        m += /*"|*/"Close % diff. = " + String.format("%.07f", percDiff);
+        m += /*"|"Close % diff. = " +*/ String.format("%.03f", percDiff);
         
         return m;
     }

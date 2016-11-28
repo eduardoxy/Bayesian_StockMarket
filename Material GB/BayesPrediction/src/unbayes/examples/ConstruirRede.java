@@ -16,10 +16,10 @@ public class ConstruirRede
     private BayesAnalysis analise;
     private int numberOfClusters;
     private ProbabilisticNetwork rede;
-    private DecisionNode nodeDecision;
+    private ProbabilisticNode nodeFirst;
     private ProbabilisticNode nodeProb;
     private PotentialTable tabela;
-    private String NODE_DECISAO = "decisionNode";
+    private String NODE_DECISAO = "firstNode";
     private String NODE_PROBABILIDADE = "probNode1";
     
     private int nEvidencia;
@@ -33,9 +33,9 @@ public class ConstruirRede
     
     public void Construir()
     {
-        this.ConstruirDecisionNode();
+        this.ConstruirFirstNode();
         this.ConstruirProbabilisticNode();
-        this.AdicionarRelacionamento();
+        //this.AdicionarRelacionamento();
         this.MontarTabelaProbabilidade();
         this.ConstruirEngine();
     }
@@ -65,19 +65,19 @@ public class ConstruirRede
         this.rede.updateEvidences();
     }
     
-    private void ConstruirDecisionNode()
+    private void ConstruirFirstNode()
     {
         // Add decision node
-        this.nodeDecision = new DecisionNode();
-		this.nodeDecision.setName(this.NODE_DECISAO);
-		this.nodeDecision.setDescription("Nó de decisão");
+        this.nodeFirst = new ProbabilisticNode();
+		this.nodeFirst.setName(this.NODE_DECISAO);
+		this.nodeFirst.setDescription("Primeiro Node");
 		
         for(int index=1; index<= numberOfClusters; index++)
         {
-            this.nodeDecision.appendState(String.format("Faixa %d", index));
+            this.nodeFirst.appendState(String.format("Faixa %d", index));
         }
 		
-		rede.addNode(this.nodeDecision);    
+		rede.addNode(this.nodeFirst);    
     }
 
     private void ConstruirProbabilisticNode()
@@ -92,12 +92,17 @@ public class ConstruirRede
             this.nodeProb.appendState(String.format("Faixa %d", index));
         }
         
+        for(int index=0; index< this.numberOfClusters; index++)
+        {
+            this.nodeProb.setMarginalAt(index, this.analise.getMarginalAt(index));
+        }
+        
 		this.rede.addNode(this.nodeProb);
     }
     
     private void AdicionarRelacionamento() throws InvalidParentException
     {
-        Edge node = new Edge(this.nodeDecision, this.nodeProb);
+        Edge node = new Edge(this.nodeFirst, this.nodeProb);
         rede.addEdge(node);
     }
     
@@ -141,12 +146,7 @@ public class ConstruirRede
         {
 			System.out.print(node.getStateAt(index));
 
-			if (node instanceof DecisionNode) 
-            {
-				DecisionNode dn = (DecisionNode) node;
-				System.out.println(" = " + dn.getMarginalAt(index));
-			} 
-            else if (node instanceof ProbabilisticNode) 
+             if (node instanceof ProbabilisticNode) 
             {
 				ProbabilisticNode dn = (ProbabilisticNode) node;
 				System.out.println(" = " + dn.getMarginalAt(index));

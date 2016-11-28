@@ -14,12 +14,12 @@ import java.util.Iterator;
  * @author EPJ
  */
 public class BayesAnalysis {
-    private Calendar                    startTime;
-    private Calendar                    endTime;
-    private CandleCollection            cCol;
-    private CandleCollection            sCol;
-    private ClusterCandleCollection     clusters;
-    private int                         nClusters;
+    protected Calendar                    startTime;
+    protected Calendar                    endTime;
+    protected CandleCollection            cCol;
+    protected CandleCollection            sCol;
+    protected ClusterCandleCollection     clusters;
+    protected int                         nClusters;
 
     public BayesAnalysis(Calendar startTime, Calendar endTime, CandleCollection cCol, int clusters) {
         this.startTime = startTime;
@@ -61,6 +61,7 @@ public class BayesAnalysis {
         int lastEnd;
         int iStart;
         int iEnd;
+        int i;
         int wClusterCalc;
         ClusterCandle cInt;
         Iterator<ClusterCandle> it;
@@ -128,10 +129,12 @@ public class BayesAnalysis {
         }
         
         // Set the conditional clusters
+        i = 0;
         it = clusters.iterator();
         while (it.hasNext())
         {
             cInt = it.next();
+            cInt.setId(i++);
             cInt.setConditionalClusters(clusters);
         }
     }
@@ -163,6 +166,16 @@ public class BayesAnalysis {
      * @return 
      */
     public float ObterValorCondicional(int nCluster, int posicao)
+    {
+        return 0;
+    }
+    
+    /***
+     * 
+     * @param posicao
+     * @return 
+     */
+    public float getMarginalAt(int posicao)
     {
         return 0;
     }

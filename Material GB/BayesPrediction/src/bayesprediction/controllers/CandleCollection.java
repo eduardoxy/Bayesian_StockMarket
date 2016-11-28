@@ -6,7 +6,6 @@
 package bayesprediction.controllers;
 
 import bayesprediction.models.Candle;
-import bayesprediction.models.IfaceClusterInterval;
 import java.util.Date;
 import java.util.Iterator;
 
