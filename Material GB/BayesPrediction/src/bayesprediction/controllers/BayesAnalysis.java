@@ -166,4 +166,14 @@ public class BayesAnalysis {
     {
         return 0;
     }
+    
+    /***
+     * 
+     * @param posicao
+     * @return 
+     */
+    public float getMarginalAt(int posicao)
+    {
+        return 0;
+    }
 }

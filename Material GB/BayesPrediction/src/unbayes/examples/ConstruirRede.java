@@ -92,6 +92,11 @@ public class ConstruirRede
             this.nodeProb.appendState(String.format("Faixa %d", index));
         }
         
+        for(int index=0; index< this.numberOfClusters; index++)
+        {
+            this.nodeProb.setMarginalAt(index, this.analise.getMarginalAt(index));
+        }
+        
 		this.rede.addNode(this.nodeProb);
     }
     
