@@ -16,7 +16,7 @@ public class ConstruirRede
     private BayesAnalysis analise;
     private int numberOfClusters;
     private ProbabilisticNetwork rede;
-    private DecisionNode nodeDecision;
+    private ProbabilisticNode nodeFirst;
     private ProbabilisticNode nodeProb;
     private PotentialTable tabela;
     private String NODE_DECISAO = "decisionNode";
@@ -33,7 +33,7 @@ public class ConstruirRede
     
     public void Construir()
     {
-        this.ConstruirDecisionNode();
+        this.ConstruirFirstNode();
         this.ConstruirProbabilisticNode();
         this.AdicionarRelacionamento();
         this.MontarTabelaProbabilidade();
@@ -65,19 +65,19 @@ public class ConstruirRede
         this.rede.updateEvidences();
     }
     
-    private void ConstruirDecisionNode()
+    private void ConstruirFirstNode()
     {
         // Add decision node
-        this.nodeDecision = new DecisionNode();
-		this.nodeDecision.setName(this.NODE_DECISAO);
-		this.nodeDecision.setDescription("Nó de decisão");
+        this.nodeFirst = new ProbabilisticNode();
+		this.nodeFirst.setName(this.NODE_DECISAO);
+		this.nodeFirst.setDescription("Nó de decisão");
 		
         for(int index=1; index<= numberOfClusters; index++)
         {
-            this.nodeDecision.appendState(String.format("Faixa %d", index));
+            this.nodeFirst.appendState(String.format("Faixa %d", index));
         }
 		
-		rede.addNode(this.nodeDecision);    
+		rede.addNode(this.nodeFirst);    
     }
 
     private void ConstruirProbabilisticNode()
@@ -102,7 +102,7 @@ public class ConstruirRede
     
     private void AdicionarRelacionamento() throws InvalidParentException
     {
-        Edge node = new Edge(this.nodeDecision, this.nodeProb);
+        Edge node = new Edge(this.nodeFirst, this.nodeProb);
         rede.addEdge(node);
     }
     
